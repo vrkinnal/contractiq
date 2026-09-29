@@ -8,7 +8,6 @@
       "@env/*": ["src/environments/*"],
       "@env": ["src/environments/environment"]
     },
-    "ignoreDeprecations": "6.0",
     "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
