@@ -3,8 +3,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",  
-    "ignoreDeprecations": "6.0",
+    "baseUrl": "./",
     "paths": {
       "@env/*": ["src/environments/*"],
       "@env": ["src/environments/environment"]
