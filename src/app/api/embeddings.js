@@ -10,20 +10,32 @@ export default async function handler(req, res) {
     const body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
 
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/text-embedding-004:embedContent?key=${process.env.GEMINI_API_KEY}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:embedContent?key=${process.env.GEMINI_API_KEY}`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          model: 'models/text-embedding-004',
-          content: { parts: [{ text: body.input }] }
+          model: 'models/gemini-embedding-001',
+          content: { parts: [{ text: body.input }] },
+          outputDimensionality: 768
         })
       }
     );
 
     const data = await response.json();
 
-    // Return in standard format
+    if (data?.error?.status === 'RESOURCE_EXHAUSTED') {
+      return res.status(429).json({ error: 'Gemini daily quota exceeded.' });
+    }
+
+    if (data?.error) {
+      return res.status(500).json({ error: data.error.message });
+    }
+
+    if (!data?.embedding?.values) {
+      return res.status(500).json({ error: 'No embedding returned from Gemini' });
+    }
+
     res.status(200).json({
       data: [{ embedding: data.embedding.values }]
     });
