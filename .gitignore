@@ -47,4 +47,4 @@ Thumbs.db
 .env
 node_modules/
 dist/
-
+src/environments/environment.ts

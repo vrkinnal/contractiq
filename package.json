@@ -1,11 +1,11 @@
 {
   "name": "contractiq",
   "version": "0.0.0",
-   "type": "module",
+  "type": "module",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "node set-env.js && ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
